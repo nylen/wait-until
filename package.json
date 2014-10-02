@@ -1,0 +1,30 @@
+{
+    "name"        : "wait-until",
+    "author"      : "James Nylen <jnylen@gmail.com>",
+    "description" : "Simple library to wait until a condition has been satisfied.",
+    "version"     : "0.0.1",
+    "repository"  : {
+        "type" : "git",
+        "url"  : "https://github.com/nylen/wait-until"
+    },
+    "bugs" : {
+        "url" : "https://github.com/nylen/wait-until/issues"
+    },
+    "license"  : "MIT",
+    "keywords" : [
+        "async",
+        "wait",
+        "until",
+        "retry",
+        "condition",
+        "timeout"
+    ],
+    "scripts" : {
+        "test" : "node node_modules/.bin/mocha"
+    },
+    "main"            : "index.js",
+    "devDependencies" : {
+        "mocha"  : "~1.21.4",
+        "should" : "~4.0.4"
+    }
+}

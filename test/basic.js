@@ -20,7 +20,7 @@ describe('Basic operation', function() {
         ready = true;
     }
 
-    it('should work with the function interface', function(done) {
+    it('uses the function interface', function(done) {
         waitUntil(50, 20, check, function(ok) {
             ok.should.equal(true);
             calls.should.equal(6);
@@ -30,7 +30,7 @@ describe('Basic operation', function() {
         setTimeout(markReady, 275);
     });
 
-    it('should work with the partial fluent interface', function(done) {
+    it('uses the partial fluent interface', function(done) {
         waitUntil()
             .interval(50)
             .times(10)
@@ -43,7 +43,7 @@ describe('Basic operation', function() {
         setTimeout(markReady, 75);
     });
 
-    it('should work with the full fluent interface', function(done) {
+    it('uses the full fluent interface', function(done) {
         waitUntil()
             .interval(50)
             .times(10)
@@ -57,7 +57,7 @@ describe('Basic operation', function() {
         setTimeout(markReady, 125);
     });
 
-    it('should allow async check functions', function(done) {
+    it('allows async check functions', function(done) {
         waitUntil()
             .interval(40)
             .times(10)
@@ -76,7 +76,7 @@ describe('Basic operation', function() {
         setTimeout(markReady, 125);
     });
 
-    it('should allow infinite times', function(done) {
+    it('allows infinite times', function(done) {
         waitUntil()
             .interval(10)
             .times(Infinity)
@@ -89,7 +89,7 @@ describe('Basic operation', function() {
         setTimeout(markReady, 500);
     });
 
-    it('should expire', function(done) {
+    it('expires', function(done) {
         var expired = false;
 
         waitUntil()

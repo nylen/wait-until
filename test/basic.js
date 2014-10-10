@@ -1,6 +1,6 @@
 var waitUntil = require('../index'),
     mocha     = require('mocha'),
-    should    = require('should');
+    must      = require('must');
 
 describe('Basic operation', function() {
     var ready,
@@ -22,8 +22,8 @@ describe('Basic operation', function() {
 
     it('uses the function interface', function(done) {
         waitUntil(50, 20, check, function(ok) {
-            ok.should.equal(true);
-            calls.should.equal(6);
+            ok.must.equal(true);
+            calls.must.equal(6);
             done();
         });
 
@@ -35,8 +35,8 @@ describe('Basic operation', function() {
             .interval(50)
             .times(10)
             .condition(check, function(ok) {
-                ok.should.equal(true);
-                calls.should.equal(2);
+                ok.must.equal(true);
+                calls.must.equal(2);
                 done();
             });
 
@@ -49,8 +49,8 @@ describe('Basic operation', function() {
             .times(10)
             .condition(check)
             .done(function(ok) {
-                ok.should.equal(true);
-                calls.should.equal(3);
+                ok.must.equal(true);
+                calls.must.equal(3);
                 done();
             });
 
@@ -68,8 +68,8 @@ describe('Basic operation', function() {
                 return false;
             })
             .done(function(ok) {
-                ok.should.equal(true);
-                calls.should.equal(3);
+                ok.must.equal(true);
+                calls.must.equal(3);
                 done();
             });
 
@@ -82,7 +82,7 @@ describe('Basic operation', function() {
             .times(Infinity)
             .condition(check)
             .done(function(ok) {
-                ok.should.equal(true);
+                ok.must.equal(true);
                 done();
             });
 
@@ -97,14 +97,14 @@ describe('Basic operation', function() {
             .times(5)
             .condition(check)
             .done(function(ok) {
-                ok.should.equal(false);
-                calls.should.equal(5);
+                ok.must.equal(false);
+                calls.must.equal(5);
                 expired = true;
             });
 
         setTimeout(function() {
             markReady();
-            expired.should.equal(true);
+            expired.must.equal(true);
             done();
         }, 150);
     });

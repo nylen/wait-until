@@ -24,7 +24,7 @@
     },
     "main"            : "index.js",
     "devDependencies" : {
-        "mocha"  : "~1.21.4",
-        "should" : "~4.0.4"
+        "mocha" : "~1.21.4",
+        "must"  : "~0.12.0"
     }
 }

@@ -14,15 +14,19 @@ var waitUntil = require('wait-until');
 
 waitUntil(interval, times, function condition() {
     return (someCondition ? true : false);
-}, function done(ok) {
-    // ok is true on success or false if the condition was never met
+}, function done(result) {
+    // result is true on success or false if the condition was never met
 });
 ```
 
 The `condition` function will be called up to `times` times, starting after
-`interval` milliseconds.  Once it returns a truthy value, the `done` callback
-will be called with `ok = true`.  If the condition is never met within the
-specified timeframe, `done` will be called with `ok = false`.
+`interval` milliseconds.  Once it returns `true` (or a truthy value), the
+`done` callback will be called with `result` equal to `true` (or whatever value
+the `condition` function returned).
+
+If the condition is never met within the specified timeframe, `done` will be
+called with `result` equal to `false` (or whatever falsy value the `condition`
+function returned the last time it was called).
 
 ### Fluent interface
 
@@ -38,7 +42,7 @@ waitUntil()
     .condition(function() {
         return (someCondition ? true : false);
     })
-    .done(function(ok) {
+    .done(function(result) {
         // do stuff
     });
 ```
@@ -59,7 +63,7 @@ waitUntil()
             cb(someCondition ? true : false);
         });
     })
-    .done(function(ok) {
+    .done(function(result) {
         // do stuff
     });
 ```

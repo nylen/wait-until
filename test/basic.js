@@ -16,13 +16,16 @@ describe('Basic operation', function() {
         return ready;
     }
 
-    function markReady() {
-        ready = true;
+    function markReady(value) {
+        if (typeof value == 'undefined') {
+            value = true;
+        }
+        ready = value;
     }
 
     it('uses the function interface', function(done) {
-        waitUntil(50, 20, check, function(ok) {
-            ok.must.equal(true);
+        waitUntil(50, 20, check, function(result) {
+            result.must.equal(true);
             calls.must.equal(6);
             done();
         });
@@ -34,8 +37,8 @@ describe('Basic operation', function() {
         waitUntil()
             .interval(50)
             .times(10)
-            .condition(check, function(ok) {
-                ok.must.equal(true);
+            .condition(check, function(result) {
+                result.must.equal(true);
                 calls.must.equal(2);
                 done();
             });
@@ -48,8 +51,8 @@ describe('Basic operation', function() {
             .interval(50)
             .times(10)
             .condition(check)
-            .done(function(ok) {
-                ok.must.equal(true);
+            .done(function(result) {
+                result.must.equal(true);
                 calls.must.equal(3);
                 done();
             });
@@ -67,8 +70,8 @@ describe('Basic operation', function() {
                 }, 10);
                 return false;
             })
-            .done(function(ok) {
-                ok.must.equal(true);
+            .done(function(result) {
+                result.must.equal(true);
                 calls.must.equal(3);
                 done();
             });
@@ -81,8 +84,8 @@ describe('Basic operation', function() {
             .interval(10)
             .times(Infinity)
             .condition(check)
-            .done(function(ok) {
-                ok.must.equal(true);
+            .done(function(result) {
+                result.must.equal(true);
                 done();
             });
 
@@ -96,8 +99,8 @@ describe('Basic operation', function() {
             .interval(10)
             .times(5)
             .condition(check)
-            .done(function(ok) {
-                ok.must.equal(false);
+            .done(function(result) {
+                result.must.equal(false);
                 calls.must.equal(5);
                 expired = true;
             });
@@ -106,6 +109,39 @@ describe('Basic operation', function() {
             markReady();
             expired.must.equal(true);
             done();
+        }, 150);
+    });
+
+    it('uses a truthy value passed from the condition function', function(done) {
+        waitUntil()
+            .interval(100)
+            .times(5)
+            .condition(check)
+            .done(function(result) {
+                result.must.eql({ a : 1, b : 2 });
+                calls.must.equal(2);
+                done();
+            });
+
+        setTimeout(function() {
+            markReady({ a : 1, b : 2 });
+        }, 150);
+    });
+
+    it('uses a falsy value passed from the condition function', function(done) {
+        waitUntil()
+            .interval(100)
+            .times(2)
+            .condition(check)
+            .done(function(result) {
+                isNaN(result).must.be.true();
+                calls.must.equal(2);
+                done();
+            });
+
+        markReady(false);
+        setTimeout(function() {
+            markReady(NaN);
         }, 150);
     });
 });

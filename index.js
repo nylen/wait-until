@@ -52,16 +52,16 @@ WaitUntil.prototype.done = function(cb) {
         throw new Error('waitUntil.condition() not called yet');
     }
 
-    (function runCheck(i) {
+    (function runCheck(i, prevResult) {
         if (i == self._times) {
-            cb(false);
+            cb(prevResult);
         } else {
             setTimeout(function() {
                 function gotConditionResult(result) {
                     if (result) {
                         cb(result);
                     } else {
-                        runCheck(i + 1);
+                        runCheck(i + 1, result);
                     }
                 }
 

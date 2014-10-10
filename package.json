@@ -2,7 +2,7 @@
     "name"        : "wait-until",
     "author"      : "James Nylen <jnylen@gmail.com>",
     "description" : "Simple library to wait until a condition has been satisfied.",
-    "version"     : "0.0.1",
+    "version"     : "0.0.2",
     "repository"  : {
         "type" : "git",
         "url"  : "https://github.com/nylen/wait-until"

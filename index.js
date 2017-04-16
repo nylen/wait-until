@@ -10,6 +10,12 @@ module.exports = exports = function waitUntil(interval, times, condition, cb) {
     }
 };
 
+//100 millisecond intervals over 10 seconds
+var defaults = {
+    interval: 100,
+    times: 100,
+}
+
 function WaitUntil() {
     var self = this;
 }
@@ -28,6 +34,16 @@ WaitUntil.prototype.times = function(_times) {
     return self;
 };
 
+WaitUntil.prototype.defaults = function(_newDefaults) {
+    var self = this;
+
+    for (var property in _newDefaults) {
+        defaults[property] = _newDefaults[property];
+    }
+
+    return self;
+};
+
 WaitUntil.prototype.condition = function(_condition, cb) {
     var self = this;
 
@@ -43,10 +59,10 @@ WaitUntil.prototype.done = function(cb) {
     var self = this;
 
     if (!self._times) {
-        throw new Error('waitUntil.times() not called yet');
+        self._times = defaults.times;
     }
     if (!self._interval) {
-        throw new Error('waitUntil.interval() not called yet');
+        self._interval = defaults.interval;
     }
     if (!self._condition) {
         throw new Error('waitUntil.condition() not called yet');

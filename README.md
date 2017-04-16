@@ -47,6 +47,42 @@ waitUntil()
     });
 ```
 
+### Defining defaults
+
+By default the values for `.interval()` and `.times()` are both set to `100`. This allows you to go straight to using `.condition()` and `.done()` without ever having to define `.interval()` and `.times()`.
+
+If you aren't happy with the default settings, you can can change them by doing this:
+
+```js
+var waitUntil = require('wait-until');
+
+// Define new global default settings
+waitUntil()
+    .defaults({
+        interval: 500,
+        times: 10
+    });
+
+// Use waitUntil() using the default settings defined above
+waitUntil()
+    .condition(function() {
+        return (someCondition ? true : false);
+    })
+    .done(function(result) {
+        // do stuff
+    });
+
+//Using .interval() and .times() will override the default values
+waitUntil()
+    .interval(200)
+    .condition(function() {
+        return (someCondition ? true : false);
+    })
+    .done(function(result) {
+        // do stuff
+    });
+```
+
 ### Async conditions
 
 If the `condition` function accepts an argument, then it is assumed to be a

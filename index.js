@@ -69,9 +69,15 @@ WaitUntil.prototype.done = function(cb) {
                     self._condition(gotConditionResult);
                 } else {
                     // don't release Zalgo
-                    process.nextTick(function() {
+                    if (process.nextTick) {
+                      process.nextTick(function() {
                         gotConditionResult(self._condition());
-                    });
+                      });
+                    } else {
+                      setImmediate(function() {
+                        gotConditionResult(self._condition());
+                      });
+                    }
                 }
             }, self._interval);
         }
